@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 
 from inputs import get_gamepad
 import RPi.GPIO as GPIO
@@ -118,15 +119,15 @@ while 1:
                 for joint in joints:
                     joint.free()
         
-        if event.code == 'ABS_X':
+        if event.code == 'ABS_Y':	# was X
             value = event.state
             if value < -1500:
-                if not joints[0].isBusy(): joints[0].run(1, 35)
+                if not joints[0].isBusy(): joints[0].run(0, 35) # was 1
             elif value > 5000:
-                if not joints[0].isBusy(): joints[0].run(0, 35)
+                if not joints[0].isBusy(): joints[0].run(1, 35)	# was 0
             else:
                 if not joints[0].isBusy(): joints[0].softStop()
-        if event.code == 'ABS_Y':
+        if event.code == 'ABS_X':
             value = event.state
             if value < -1500:
                 if not joints[1].isBusy(): joints[1].run(1, 20)
@@ -134,7 +135,7 @@ while 1:
                 if not joints[1].isBusy(): joints[1].run(0, 20)
             else:
                 if not joints[1].isBusy(): joints[1].softStop()
-        if event.code == 'ABS_RX':
+        if event.code == 'ABS_RY':
             value = event.state
             if value < -3500:
                 if not joints[2].isBusy(): joints[2].run(1, 100)
@@ -142,7 +143,7 @@ while 1:
                 if not joints[2].isBusy(): joints[2].run(0, 100)
             else:
                 if not joints[2].isBusy(): joints[2].softStop()
-        if event.code == 'ABS_RY':
+        if event.code == 'ABS_RX':
             value = event.state
             if value < -3500:
                 if not joints[3].isBusy(): joints[3].run(1, 10)
